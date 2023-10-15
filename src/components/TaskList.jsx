@@ -1,41 +1,43 @@
-import {Task} from "./Task";
-import {useEffect, useState} from "react";
+import { useTask } from "../hooks/useTask";
+import { Task } from "./Task";
+import { useRef } from "react";
 
-export const TaskList = (props)=> {
+export const TaskList = ()=> {
 
-    const {list} = props;
+    const [tasks, createTask, changeState, deleteTask, updateTask] = useTask();
+    const inputValue = useRef(null);
 
-    const [completed, setCompleted] = useState([]);
-    
-    const handleCheckBox = (taskName) => {
-        let completedAux = [...completed]
+    function handleCheckBox(taskName) {
+        changeState(taskName);
+    };
 
-        if (!completed.includes(taskName)) {
-            completedAux = [...completedAux, taskName];
-        } else {
-            completedAux = completedAux.filter((task)=> task != taskName);
-        }
-        setCompleted(completedAux);
-        localStorage.setItem("completed", JSON.stringify(completedAux));
-    }
+    function handleNewTask() {
+        createTask(inputValue.current.value);
+    };
 
-    useEffect(()=>{
-        const localStorageData = localStorage.getItem("completed");
-        const storageCompleted = JSON.parse(localStorageData);
+    function handleDeleteTask(taskName) {
+        deleteTask(taskName);
+    };
 
-        setCompleted(storageCompleted);
-    }, []);
-
+    function handleEditTask(taskName, newTaskName) {
+        updateTask(taskName, newTaskName)
+    };
 
     return(
-        <ul>
-            {
-                list.map(task => <Task 
-                    key={task.name} 
-                    name={task.name}
-                    onChangeCheck={handleCheckBox}
-                    isCompleted={completed.includes(task.name)}/>)
-            }
-        </ul>
+        <>
+            <input ref={inputValue} type="text" />
+            <button onClick={handleNewTask}>+</button>
+            <ul>
+                {
+                    tasks.map(task => <Task 
+                        key={task.name} 
+                        name={task.name}
+                        onChangeCheck={handleCheckBox}
+                        isCompleted={task.state}
+                        onDelete={handleDeleteTask}
+                        onEditTask={handleEditTask}/>)
+                }
+            </ul>
+        </>
     );
 };
