@@ -2,13 +2,23 @@ import { isValidElement } from "react";
 
 export const Task = (props)=>{
 
-    const {name, checked} = props;
+    const {name, isCompleted, onChangeCheck} = props;
+
+    const handleChangeCheck = () => {
+      onChangeCheck(name);  
+    };
 
     return (
         <li>
             <>
-                <input type="checkbox" id="miCheckbox" checked={checked} readOnly/>
-                <label htmlFor="miCheckbox" style={{textDecoration: checked ? 'line-through' : 'none' }}>{name}</label>
+                <label style={{textDecoration: isCompleted ? 'line-through' : 'none' }}>
+                    <input
+                        type="checkbox"
+                        checked={isCompleted}
+                        onChange={handleChangeCheck}
+                    />
+                    {name}
+                </label>
             </>
         </li>
     );

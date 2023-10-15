@@ -1,10 +1,10 @@
 import {Header} from "./components/Header"
 import { TaskList } from "./components/TaskList";
 
-const taskList = [{"name": "Ayudar a mamá", "checked":false}, 
-{"name": "Limpiar el cuarto", "checked":false},
-{"name": "Hacer tarea de IETI", "checked":true},
-{"name": "Dormir hasta tarde", "checked":true}];
+const taskList = [{"name": "Ayudar a mamá"}, 
+{"name": "Limpiar el cuarto"},
+{"name": "Hacer tarea de IETI"},
+{"name": "Dormir hasta tarde"}];
 
 function App() {
   return (
