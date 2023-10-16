@@ -13,10 +13,13 @@ export function useTask() {
         localStorage.setItem("tasks", JSON.stringify(tasksAux));
     }
 
-    function createTask(taskName) {
-        const tasksAux = [...tasks, {"name": taskName, state: false}];
-        setTasks(tasksAux);
-        localStorage.setItem("tasks", JSON.stringify(tasksAux));
+    function createTask(task) {
+        const exist = Object.keys(tasks).every((key) => tasks[key].name === task.name);
+        if (!exist | tasks.length === 0) {
+            const tasksAux = [...tasks, task];
+            setTasks(tasksAux);
+            localStorage.setItem("tasks", JSON.stringify(tasksAux));  
+        }
     }
 
     function changeState(taskName) {
@@ -25,8 +28,8 @@ export function useTask() {
         localStorage.setItem("tasks", JSON.stringify(tasksAux));
     };
 
-    function updateTask(taskName, newTaskName) {
-        let tasksAux = tasks.map((task) => task.name === taskName ? {...task, name: newTaskName} : task)
+    function updateTask(oldTaskName, newTask) {
+        let tasksAux = tasks.map((task) => task.name === oldTaskName ? newTask : task)
         setTasks(tasksAux);
         localStorage.setItem("tasks", JSON.stringify(tasksAux));
     }

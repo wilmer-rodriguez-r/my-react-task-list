@@ -1,10 +1,10 @@
-import { useState, useRef} from "react";
+import { useState } from "react";
+import { FormTask } from "./formTask";
 
 export const Task = (props)=>{
 
     const [inputVisible, setInputVisible] = useState(false);
-    const inputValue = useRef(null);
-    const {name, isCompleted, onChangeCheck, onDelete, onEditTask} = props;
+    const {name, description, isCompleted, onChangeCheck, onDelete, onEditTask} = props;
 
     const handleChangeCheck = () => {
         onChangeCheck(name);  
@@ -18,15 +18,13 @@ export const Task = (props)=>{
         setInputVisible(true);
     }
 
-    const handleEditTask = () => {
-        setInputVisible(false);
-        onEditTask(name, inputValue.current.value);
+    const handleEditTask = (task) => {
+        onEditTask(name, task)
     }
 
     return (
         <li>
             <>
-
                 <label style={{textDecoration: isCompleted ? 'line-through' : 'none' }}>
                     <input
                         type="checkbox"
@@ -34,16 +32,14 @@ export const Task = (props)=>{
                         onChange={handleChangeCheck}
                     />
                     {name}
+                    <p>Description: {description}</p>
                 </label>
                 <div>
-                <button onClick={handleEdit}>Edit</button>
-                <button onClick={handleDelete}>Delete</button>
+                    <button disabled={isCompleted} onClick={handleEdit}>Edit</button>
+                    <button onClick={handleDelete}>Delete</button>
                 </div>
                 <div>
-                    {inputVisible && <label>
-                            <input type="text" ref={inputValue}/>
-                            <button onClick={handleEditTask}>Update</button>
-                        </label>}
+                    {inputVisible && <FormTask onChangeTask={handleEditTask}/>}
                 </div>
             </>
         </li>

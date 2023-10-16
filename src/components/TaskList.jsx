@@ -1,18 +1,13 @@
 import { useTask } from "../hooks/useTask";
-import { Task } from "./Task";
-import { useRef } from "react";
+import { Task } from "./Task";;
+import { FormTask } from "./formTask";
 
 export const TaskList = ()=> {
 
     const [tasks, createTask, changeState, deleteTask, updateTask] = useTask();
-    const inputValue = useRef(null);
 
     function handleCheckBox(taskName) {
         changeState(taskName);
-    };
-
-    function handleNewTask() {
-        createTask(inputValue.current.value);
     };
 
     function handleDeleteTask(taskName) {
@@ -25,15 +20,15 @@ export const TaskList = ()=> {
 
     return(
         <>
-            <input ref={inputValue} type="text" />
-            <button onClick={handleNewTask}>+</button>
+            <FormTask onChangeTask={createTask}/>
             <ul>
                 {
                     tasks.map(task => <Task 
                         key={task.name} 
                         name={task.name}
-                        onChangeCheck={handleCheckBox}
+                        description={task.description}
                         isCompleted={task.state}
+                        onChangeCheck={handleCheckBox}
                         onDelete={handleDeleteTask}
                         onEditTask={handleEditTask}/>)
                 }

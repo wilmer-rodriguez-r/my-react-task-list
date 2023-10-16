@@ -2,12 +2,7 @@ import { useEffect } from "react";
 import {Header} from "./components/Header"
 import { TaskList } from "./components/TaskList";
 
-const taskList = [{"name": "Ayudar a mamá", "state": false}, 
-{"name": "Limpiar el cuarto", "state": true},
-{"name": "Hacer tarea de IETI", "state": false},
-{"name": "Dormir hasta tarde", "state": false}];
-
-
+const taskList = [{"name": "Ayudar a mamá", "description": "Cuando se pueda","state": false}]
 
 function App() {
   useEffect((()=>{
