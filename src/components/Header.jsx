@@ -1,5 +1,8 @@
+import { Center, Text } from "@chakra-ui/react"
 export const Header = () => {
     return (
-        <h1>Task List</h1>
+        <Center>
+            <Text fontSize='4xl'>Task List</Text>
+        </Center>
     )
 }

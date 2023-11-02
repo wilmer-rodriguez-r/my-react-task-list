@@ -7,23 +7,23 @@ export function useTask() {
     function deleteTask(taskName) {
         let tasksAux = [...tasks];
 
-        tasksAux = tasksAux.filter((task)=> task.name != taskName);
+        tasksAux = tasksAux.filter((task) => task.name != taskName);
 
         setTasks(tasksAux);
         localStorage.setItem("tasks", JSON.stringify(tasksAux));
     }
 
     function createTask(task) {
-        const exist = Object.keys(tasks).every((key) => tasks[key].name === task.name);
-        if (!exist | tasks.length === 0) {
+        const notExist = Object.keys(tasks).every((key) => tasks[key].name !== task.name);
+        if (notExist | tasks.length === 0) {
             const tasksAux = [...tasks, task];
             setTasks(tasksAux);
-            localStorage.setItem("tasks", JSON.stringify(tasksAux));  
+            localStorage.setItem("tasks", JSON.stringify(tasksAux));
         }
     }
 
     function changeState(taskName) {
-        let tasksAux = tasks.map((task) => task.name === taskName ? {...task, state: !task.state} : task)
+        let tasksAux = tasks.map((task) => task.name === taskName ? { ...task, state: !task.state } : task)
         setTasks(tasksAux);
         localStorage.setItem("tasks", JSON.stringify(tasksAux));
     };
@@ -34,12 +34,12 @@ export function useTask() {
         localStorage.setItem("tasks", JSON.stringify(tasksAux));
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         const localStorageData = localStorage.getItem("tasks");
         const storageTasks = JSON.parse(localStorageData);
 
         setTasks(storageTasks);
     }, []);
-   
-    return[tasks, createTask, changeState, deleteTask, updateTask]
+
+    return [tasks, createTask, changeState, deleteTask, updateTask]
 }

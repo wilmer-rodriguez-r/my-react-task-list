@@ -1,8 +1,8 @@
 import { useTask } from "../hooks/useTask";
 import { Task } from "./Task";;
 import { FormTask } from "./formTask";
-
-export const TaskList = ()=> {
+import { Box, Center, Checkbox, HStack } from "@chakra-ui/react";
+export const TaskList = () => {
 
     const [tasks, createTask, changeState, deleteTask, updateTask] = useTask();
 
@@ -18,21 +18,27 @@ export const TaskList = ()=> {
         updateTask(taskName, newTaskName)
     };
 
-    return(
+    return (
         <>
-            <FormTask onChangeTask={createTask}/>
-            <ul>
-                {
-                    tasks.map(task => <Task 
-                        key={task.name} 
-                        name={task.name}
-                        description={task.description}
-                        isCompleted={task.state}
-                        onChangeCheck={handleCheckBox}
-                        onDelete={handleDeleteTask}
-                        onEditTask={handleEditTask}/>)
-                }
-            </ul>
+            <Box >
+                <Center>
+                    <HStack align={"left"} spacing='100px'>
+                        <FormTask onChangeTask={createTask} />
+                        <ul>
+                            {
+                                tasks.map(task => <Task
+                                    key={task.name}
+                                    name={task.name}
+                                    description={task.description}
+                                    isCompleted={task.state}
+                                    onChangeCheck={handleCheckBox}
+                                    onDelete={handleDeleteTask}
+                                    onEditTask={handleEditTask} />)
+                            }
+                        </ul>
+                    </HStack>
+                </Center>
+            </Box>
         </>
     );
 };

@@ -1,15 +1,15 @@
 import { useState } from "react";
-
+import { Box, Button, Center, Stack, Textarea } from "@chakra-ui/react";
 export const FormTask = (props) => {
 
-    const {onChangeTask} = props;
+    const { onChangeTask } = props;
     const [nameTask, setNameTask] = useState("");
     const [description, setDescription] = useState("");
-    const [formValidation, setFormValidation] = useState({taskName: undefined,});
+    const [formValidation, setFormValidation] = useState({ taskName: undefined, });
 
     function handleNameTaskChange(event) {
         const value = event.target.value;
-        setFormValidation({...formValidation, taskName: value.length < 4 ? "name is too short" : ""});
+        setFormValidation({ ...formValidation, taskName: value.length < 4 ? "name is too short" : "" });
         setNameTask(value);
     }
 
@@ -22,23 +22,21 @@ export const FormTask = (props) => {
 
     function onSubmit() {
         event.preventDefault();
-        const task = {name: nameTask, description: description, state: false};
+        const task = { name: nameTask, description: description, state: false };
         onChangeTask(task);
     }
 
-    return(
+    return (
         <form onSubmit={onSubmit}>
-            <div>
-                <label>Name: 
-                 <input placeholder="New Task" value={nameTask} onChange={handleNameTaskChange} type="text" />
-                </label>
-                {formValidation.taskName && <span style={{color: "red"}}>{formValidation.taskName}</span>}
-            </div>
-            <div>
-                <label>Description: </label>
-                <input placeholder="Description" value={description} onChange={handleDescriptionChange} type="text" />
-            </div>
-            <button disabled={!isValidForm}>Sumbit</button>
+                    <Stack>
+                        <label>Name:
+                            <Textarea placeholder='New Task' value={nameTask} onChange={handleNameTaskChange} type="text" />
+                        </label>
+                        {formValidation.taskName && <span style={{ color: "red" }}>{formValidation.taskName}</span>}
+                        <label>Description: </label>
+                        <Textarea placeholder='Description' value={description} onChange={handleDescriptionChange} type="text" />
+                        <Button disabled={!isValidForm} onClick={onSubmit} colorScheme="blue"> Sumbit </Button>
+                    </Stack>
         </form>
-        );
+    );
 }

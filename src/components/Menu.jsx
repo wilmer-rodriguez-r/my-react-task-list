@@ -1,17 +1,26 @@
 import { Link } from "react-router-dom";
-
+import {
+    Breadcrumb,
+    BreadcrumbItem,
+    BreadcrumbLink,
+    BreadcrumbSeparator,
+  } from '@chakra-ui/react'
 export const Menu = () => {
     return (
-    <ul>
-        <li>
-            <Link to="/">Home</Link>
-        </li>
-        <li>
-            <Link to="/about-us">Sobre Nosostros</Link>
-        </li>
-        <li>
-            <Link to="/tasks">Tareas</Link>
-        </li>
-    </ul>
-    )
+        <>
+        <Breadcrumb>
+        <BreadcrumbItem>
+            <BreadcrumbLink href='/'>Home</BreadcrumbLink>
+        </BreadcrumbItem>
+
+        <BreadcrumbItem>
+            <BreadcrumbLink href='/about-us'>Sobre Nosotros</BreadcrumbLink>
+        </BreadcrumbItem>
+
+        <BreadcrumbItem>
+            <BreadcrumbLink href='/tasks'>Tareas</BreadcrumbLink>
+        </BreadcrumbItem>
+        </Breadcrumb>
+    </>
+    );
 }

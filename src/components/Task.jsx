@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { FormTask } from "./formTask";
-
-export const Task = (props)=>{
+import { Checkbox, Text, Button } from "@chakra-ui/react";
+export const Task = (props) => {
 
     const [inputVisible, setInputVisible] = useState(false);
-    const {name, description, isCompleted, onChangeCheck, onDelete, onEditTask} = props;
+    const { name, description, isCompleted, onChangeCheck, onDelete, onEditTask } = props;
 
     const handleChangeCheck = () => {
-        onChangeCheck(name);  
+        onChangeCheck(name);
     };
 
     const handleDelete = () => {
-        onDelete(name);  
+        onDelete(name);
     };
 
     const handleEdit = () => {
@@ -25,21 +25,20 @@ export const Task = (props)=>{
     return (
         <li>
             <>
-                <label style={{textDecoration: isCompleted ? 'line-through' : 'none' }}>
-                    <input
-                        type="checkbox"
-                        checked={isCompleted}
-                        onChange={handleChangeCheck}
-                    />
-                    {name}
-                    <p>Description: {description}</p>
-                </label>
+                <Checkbox colorScheme='green' checked={isCompleted} onChange={handleChangeCheck} style={{ textDecoration: isCompleted ? 'line-through' : 'none' }}>
+                    <Text>
+                        {name}
+                    </Text>
+                    <Text>
+                        Description: {description}
+                    </Text>
+                </Checkbox>
                 <div>
-                    <button disabled={isCompleted} onClick={handleEdit}>Edit</button>
-                    <button onClick={handleDelete}>Delete</button>
+                    <Button disabled={isCompleted} onClick={handleEdit} colorScheme="blue"> Edit </Button>
+                    <Button onClick={handleDelete} colorScheme="blue"> Delete </Button>
                 </div>
                 <div>
-                    {inputVisible && <FormTask onChangeTask={handleEditTask}/>}
+                    {inputVisible && <FormTask onChangeTask={handleEditTask} />}
                 </div>
             </>
         </li>
